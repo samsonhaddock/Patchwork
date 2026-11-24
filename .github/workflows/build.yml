@@ -12,6 +12,10 @@ jobs:
         run: |
           curl -L -o src.zip "https://drive.usercontent.google.com/download?id=1ktQMbcBCsO7VMMDmVoJzGXXR6ygEJT6J&export=download&confirm=t"
           unzip -q -o src.zip || { echo "::error::Download from Google Drive failed"; exit 1; }
+      - name: Apply fixes
+        run: |
+          # Fix 1: remove a comment line that broke Recipes.kt (nested /* in a comment)
+          sed -i '/assets\/tracking\/\*\*"},/d' Patchwork/app/src/main/java/app/patchwork/Recipes.kt
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
