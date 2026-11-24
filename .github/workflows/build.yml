@@ -16,6 +16,8 @@ jobs:
         run: |
           # Fix 1: remove a comment line that broke Recipes.kt (nested /* in a comment)
           sed -i '/assets\/tracking\/\*\*"},/d' Patchwork/app/src/main/java/app/patchwork/Recipes.kt
+          # Fix 2: rename setWorkspace() so it doesn't clash with the 'workspace' property setter
+          sed -i 's/setWorkspace(/enterWorkspace(/g' Patchwork/app/src/main/java/app/patchwork/PatcherViewModel.kt
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
